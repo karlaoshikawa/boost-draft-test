@@ -39,6 +39,22 @@ java Main "<Design><Code>hello world</Code></Design>"
 ## Restrictions
 This program does not use any classes from the System.XML package or regular expressions, as specified in the requirements.
 
+## Tests 
+I chose not to use any testing libraries in this project intentionally. It's to maintain simplicity and focus solely on the XML validation logic. By avoiding external dependencies, the code stays lightweight and easy to grasp.
+
+Follow these instructions to test the code:
+
+1- Open a terminal or command prompt and navigate to the directory.
+```bash
+cd src
+javac TestXMLValidator.java XMLValidator.java
+```
+2- Run the test
+```bash
+java TestXMLValidator
+```
+
+
 ## Author:
 ### Oshikawa Karla (押川　カルラ)
 [GitHub](https://github.com/karlaoshikawa)

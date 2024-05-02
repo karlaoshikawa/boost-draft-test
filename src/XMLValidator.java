@@ -4,20 +4,20 @@ public class XMLValidator {
 
     public static String validateXML(String xml) {
         Stack<String> stack = new Stack<>();
-        xml = xml.replaceAll("\\s", "");
+        String xmlWithoutWhitespace = removeWhitespace(xml);
 
-        for (int i = 0; i < xml.length(); i++) {
-            if (xml.charAt(i) == '<') {
-                if (xml.charAt(i + 1) != '/') {
-                    int j = findClosingTag(xml, i);
+        for (int i = 0; i < xmlWithoutWhitespace.length(); i++) {
+            if (xmlWithoutWhitespace.charAt(i) == '<') {
+                if (xmlWithoutWhitespace.charAt(i + 1) != '/') {
+                    int j = findClosingTag(xmlWithoutWhitespace, i);
                     if (j == -1) return "Invalid";
-                    String tag = xml.substring(i + 1, j);
+                    String tag = xmlWithoutWhitespace.substring(i + 1, j);
                     stack.push(tag);
                     i = j;
                 } else {
-                    int j = findClosingTag(xml, i);
+                    int j = findClosingTag(xmlWithoutWhitespace, i);
                     if (j == -1) return "Invalid";
-                    String closingTag = xml.substring(i + 2, j);
+                    String closingTag = xmlWithoutWhitespace.substring(i + 2, j);
                     if (stack.isEmpty() || !stack.pop().equals(closingTag)) {
                         return "Invalid";
                     }
@@ -27,6 +27,19 @@ public class XMLValidator {
         }
 
         return stack.isEmpty() ? "Valid" : "Invalid";
+    }
+
+    private static String removeWhitespace(String xml) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < xml.length(); i++) {
+            char currentChar = xml.charAt(i);
+            if (!Character.isWhitespace(currentChar)) {
+                result.append(currentChar);
+            }
+        }
+
+        return result.toString();
     }
 
     private static int findClosingTag(String xml, int startIndex) {
